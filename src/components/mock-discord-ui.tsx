@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 import { Icons } from "./icons"
-import { PlusCircle } from "lucide-react"
+import { Inbox, PlusCircle, UserCircle } from "lucide-react"
 
 export const MockDiscordUI = ({ children }: PropsWithChildren) => {
   return (
@@ -36,7 +36,24 @@ export const MockDiscordUI = ({ children }: PropsWithChildren) => {
           </div>
         </div>
 
-        <div></div>
+        <div className="flex-1 overflow-y-auto pt-4">
+          <div className=" px-2 mb-4">
+            <div className="flex items-center text-sm px-2 py-1.5 rounded hover:bg-[#393c43] text-[#dcddde] cursor-not-allowed">
+              <UserCircle className="mr-4 size-8 text-[#b9bbbe]"></UserCircle>
+              <span className=" font-medium text-sm">Friends</span>
+            </div>
+            <div className="flex items-center text-sm px-2 py-1.5 rounded hover:bg-[#393c43] text-[#dcddde] cursor-not-allowed">
+              <Inbox className="mr-4 size-8 text-[#b9bbbe]"></Inbox>
+              <span className=" font-medium text-sm">Nitro</span>
+            </div>
+          </div>
+
+          <div className="px-2 mb-4">
+            <h3 className="text-xs font-semibold text-[#8e9297] px-2 mb-2 uppercase">
+              Direct Messages
+            </h3>
+          </div>
+        </div>
       </div>
     </div>
   )
