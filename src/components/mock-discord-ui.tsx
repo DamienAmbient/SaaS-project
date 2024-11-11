@@ -3,10 +3,16 @@ import { Icons } from "./icons"
 import {
   Cog,
   Headphones,
+  HelpCircle,
   Inbox,
+  Menu,
   Mic,
+  Phone,
+  Pin,
   PlusCircle,
+  Search,
   UserCircle,
+  Video,
 } from "lucide-react"
 import Image from "next/image"
 
@@ -105,7 +111,36 @@ export const MockDiscordUI = ({ children }: PropsWithChildren) => {
 
       {/* {main content} */}
       <div className="flex-1 flex flex-col">
-        <div className="h-16 bg-[#36393f] flex items-center px-4 shadow-sm border-b border-[#202225]"></div>
+        <div className="h-16 bg-[#36393f] flex items-center px-4 shadow-sm border-b border-[#202225]">
+          <div className=" md:hidden mr-4">
+            <Menu className="size-6 text-[#b9bbbe] hover:text-white cursor-pointer"></Menu>
+          </div>
+
+          <div className="flex items-center">
+            <div className="relative">
+              <Image
+                src="/brand-asset-profile-picture.png"
+                alt="PingPanda Avatar"
+                width={40}
+                height={40}
+                className=" object-cover rounded-full mr-3"
+              ></Image>
+              <div className="absolute bottom-0 right-3 size-3 bg-green-500 rounded-full border-2 border-[#36393f]"></div>
+            </div>
+
+            <p className="font-semibold text-white">PingPanda</p>
+          </div>
+
+          <div className=" ml-auto flex items-center space-x-4 text-[#b9bbbe]">
+            <Phone className="size-5 hover:text-white cursor-not-allowed hidden sm:block"></Phone>
+            <Video className="size-5 hover:text-white cursor-not-allowed hidden sm:block"></Video>
+            <Pin className="size-5 hover:text-white cursor-not-allowed hidden sm:block"></Pin>
+            <UserCircle className="size-5 hover:text-white cursor-not-allowed hidden sm:block"></UserCircle>
+            <Search className="size-5 hover:text-white cursor-not-allowed hidden sm:block"></Search>
+            <Inbox className="size-5 hover:text-white cursor-not-allowed hidden sm:block"></Inbox>
+            <HelpCircle className="size-5 hover:text-white cursor-not-allowed hidden sm:block"></HelpCircle>
+          </div>
+        </div>
       </div>
     </div>
   )
