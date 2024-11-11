@@ -1,6 +1,14 @@
 import { PropsWithChildren } from "react"
 import { Icons } from "./icons"
-import { Inbox, PlusCircle, UserCircle } from "lucide-react"
+import {
+  Cog,
+  Headphones,
+  Inbox,
+  Mic,
+  PlusCircle,
+  UserCircle,
+} from "lucide-react"
+import Image from "next/image"
 
 export const MockDiscordUI = ({ children }: PropsWithChildren) => {
   return (
@@ -52,8 +60,52 @@ export const MockDiscordUI = ({ children }: PropsWithChildren) => {
             <h3 className="text-xs font-semibold text-[#8e9297] px-2 mb-2 uppercase">
               Direct Messages
             </h3>
+
+            <div className="flex items-center px-2 py-1.5 bg-[#393c43] text-white cursor-pointer">
+              <Image
+                src="/brand-asset-profile-picture.png"
+                alt="PingPanda Avatar"
+                width={32}
+                height={32}
+                className=" object-cover rounded-full mr-3"
+              ></Image>
+              <span className=" font-medium">PingPanda</span>
+            </div>
+
+            <div className="my-1 space-y-px">
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={i}
+                  className="flex items-center px-22 py-1.5 rounded text-gray-600 cursor-not-allowed"
+                >
+                  <div className="size-8 rounded-full bg-discord-background mr-3"></div>
+                  <span className=" font-medium">User {i + 1}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
+        <div className="p-2 bg-[#292b2f] flex items-center">
+          <div className="size-8 rounded-full bg-brand-700 mr-2"></div>
+          <div className="flex-1">
+            <p className=" text-sm font-medium text-white">You</p>
+            <p className=" text-xs text-[#b9bbbe] flex items-center">
+              @your_account
+            </p>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Mic className="size-5 text-[#b9bbbe] hover:text-white cursor-pointer"></Mic>
+            <Headphones className="size-5 text-[#b9bbbe] hover:text-white cursor-pointer"></Headphones>
+            <Cog className="size-5 text-[#b9bbbe] hover:text-white cursor-pointer"></Cog>
+          </div>
+        </div>
+      </div>
+
+      {/* {main content} */}
+      <div className="flex-1 flex flex-col">
+        <div className="h-16 bg-[#36393f] flex items-center px-4 shadow-sm border-b border-[#202225]"></div>
       </div>
     </div>
   )
