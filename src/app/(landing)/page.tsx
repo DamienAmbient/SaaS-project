@@ -3,6 +3,8 @@ import { MaxWidthWrapper } from "@/components/max-width-wrapper"
 import { Check } from "lucide-react"
 import { ShinyButton } from "@/components/shiny-button"
 import { MockDiscordUI } from "@/components/mock-discord-ui"
+import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list"
+import { DiscordMessage } from "@/components/discrod-message"
 
 const Page = () => {
   return (
@@ -58,7 +60,41 @@ const Page = () => {
         <div className="relative mx-auto">
           <MaxWidthWrapper className="relative">
             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-              <MockDiscordUI></MockDiscordUI>
+              <MockDiscordUI>
+                <AnimatedList>
+                  <AnimatedListItem>
+                    <DiscordMessage
+                      avatarSrc="/brand-asset-profile-picture.png"
+                      avatarAlt="PingPanda Avatar"
+                      username="PingPanda"
+                      timestamp="Today at 12:22"
+                      badgeText="SignUp"
+                      badgeColor="#43b581"
+                      title="👤 New user signed up"
+                      content={{
+                        name: "Bruno Baruni",
+                        email: "b.baruni@fake.com",
+                      }}
+                    ></DiscordMessage>
+                  </AnimatedListItem>
+                  <AnimatedListItem>
+                    <DiscordMessage
+                      avatarSrc="/brand-asset-profile-picture.png"
+                      avatarAlt="PingPanda Avatar"
+                      username="PingPanda"
+                      timestamp="Today at 12:22"
+                      badgeText="Revenue"
+                      badgeColor="#faa61a"
+                      title="💰 Payment received"
+                      content={{
+                        amount: "$49.00",
+                        email: "gina.baruni@fake.com",
+                        plan: "PRO",
+                      }}
+                    ></DiscordMessage>
+                  </AnimatedListItem>
+                </AnimatedList>
+              </MockDiscordUI>
             </div>
           </MaxWidthWrapper>
         </div>
