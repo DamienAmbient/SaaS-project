@@ -15,7 +15,7 @@ interface DiscordMessageProps {
   }
 }
 
-type BadgeColor = "#43b581" | "#faa61a" | (string & {})
+type BadgeColor = "#43b581" | "#faa61a" | "#5865f2" | (string & {})
 
 const getBadgeStyles = (color: BadgeColor) => {
   switch (color) {
@@ -23,6 +23,8 @@ const getBadgeStyles = (color: BadgeColor) => {
       return "bg-green-500/10 text-green-400 ring-green-500/20"
     case "#faa61a":
       return "bg-yellow-500/10 text-yellow-400 ring-yellow-500/20"
+    case "#5865f2":
+      return "bg-blue-500/10 text-blue-500 ring-blue-500/20"
     default:
       return "bg-gray-500/10 text-gray-400 ring-gray-500/20"
   }
@@ -62,7 +64,7 @@ export const DiscordMessage = ({
         </div>
 
         <div className="bg-[#2f3136] text-sm w-full rounded p-3 mb-4 mt-1.5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+          <div className="flex flex-row items-center justify-between mb-2">
             {badgeText ? (
               <span
                 className={cn(
