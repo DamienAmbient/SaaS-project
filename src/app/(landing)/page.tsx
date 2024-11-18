@@ -322,7 +322,47 @@ const Page = () => {
                 </div>
               </div>
             </div>
+
+            {/* {second review} */}
+            <div className="flex flex-auto flex-col gap-4 bg-brand-25 p-6 sm:p-8 lg:p-16 rounded-b-[2rem] lg:rounded-bl-none lg:rounded-r-[2rem]">
+              <div className="flex gap-0.5 mb-2 justify-center lg:justify-start">
+                <Star className="size-5 text-brand-600 fill-brand-600"></Star>
+                <Star className="size-5 text-brand-600 fill-brand-600"></Star>
+                <Star className="size-5 text-brand-600 fill-brand-600"></Star>
+                <Star className="size-5 text-brand-600 fill-brand-600"></Star>
+                <Star className="size-5 text-brand-600 fill-brand-600"></Star>
+              </div>
+
+              <p className="text-base sm:text-lg lg:text-lg/8 font-medium tracking-tight text-brand-950 text-center lg:text-left text-pretty">
+                PingPanda&apos;s been paying off for our SaaS. Nice to have
+                simple way to see how we are doing day-to-day. Definetely makes
+                our lives easier.
+              </p>
+              <div className="flex flex-col justify-center lg:justify-start sm:flex-row items-center sm:items-start gap-4 mt-2">
+                <Image
+                  src="/user-1.png"
+                  alt="Random user review"
+                  className="rounded-full object-cover"
+                  width={48}
+                  height={48}
+                ></Image>
+                <div className="flex flex-col items-center sm:items-start">
+                  <p className="font-semibold flex items-center">
+                    Mark Stevenson
+                    <Icons.verificationBadge className="size-4 inline-block ml-1.5"></Icons.verificationBadge>
+                  </p>
+                  <p className="text-sm text-gray-600">@smarks</p>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <ShinyButton
+            href="/sign-up"
+            className="relative z-10 h-14 w-full max-w-xs text-base shadow-lg transition-shadow duration-300 hover:shadow-xl"
+          >
+            Start For Free Today
+          </ShinyButton>
         </MaxWidthWrapper>
       </section>
     </>
