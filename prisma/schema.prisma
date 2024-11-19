@@ -11,11 +11,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
+enum Plan {
+  FREE 
+  PRO
+}
+
+model User {
+  id String @id @default(cuid())
+  externalId String? @unique
+
+  quotaLimit Int
+  plan Plan @default(FREE)
+
+  email String @unique
+  apiKey String @unique(cuid())
+  discordId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([name])
+  @@index([email, apiKey])
 }
