@@ -15,9 +15,9 @@ const Page = async () => {
     where: { externalId: auth.id },
   })
 
-  // if (!user) {
-  //   redirect("/sign-in")
-  // }
+  if (!user) {
+    redirect("/welcome")
+  }
 
   return (
     <DashboardPage title="Dashboard">
