@@ -1,14 +1,14 @@
 "use client"
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { client } from "../lib/client"
 import { LoadingSpinner } from "@/components/loading-spinner"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { Modal } from "@/components/ui/modal"
+import { client } from "../lib/client"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { format, formatDistanceToNow } from "date-fns"
 import { ArrowRight, BarChart2, Clock, Database, Trash2 } from "lucide-react"
 import Link from "next/link"
-import { Button, buttonVariants } from "@/components/ui/button"
 import { useState } from "react"
-import { Modal } from "@/components/ui/modal"
 
 export const DashboardPageContent = () => {
   const [deletingCategory, setDeletingCategory] = useState<string | null>(null)
@@ -38,7 +38,7 @@ export const DashboardPageContent = () => {
   if (isEventCategoriesLoading) {
     return (
       <div className="flex items-center justify-center flex-1 h-full w-full">
-        <LoadingSpinner></LoadingSpinner>
+        <LoadingSpinner />
       </div>
     )
   }

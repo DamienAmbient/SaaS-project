@@ -19,7 +19,7 @@ const Page = async () => {
   })
 
   if (!user) {
-    redirect("/welcome")
+    return redirect("/welcome")
   }
 
   return (
