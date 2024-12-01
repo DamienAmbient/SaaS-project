@@ -54,7 +54,7 @@ export const CreateEventCategoryModal = ({ children }: PropsWithChildren) => {
   const [isOpen, setIsOpen] = useState(false)
   const queryClient = useQueryClient()
 
-  const { mutate: createEventCategory } = useMutation({
+  const { mutate: createEventCategory, isPending } = useMutation({
     mutationFn: async (data: EventCategoryForm) => {
       await client.category.createEventCategory.$post(data)
     },
@@ -187,7 +187,9 @@ export const CreateEventCategoryModal = ({ children }: PropsWithChildren) => {
             >
               Cancel
             </Button>
-            <Button type="submit">Create category</Button>
+            <Button disabled={isPending} type="submit">
+              {isPending ? "Creating..." : "Create Category"}
+            </Button>
           </div>
         </form>
       </Modal>
