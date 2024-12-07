@@ -1,3 +1,4 @@
+import { DiscordClient } from "@/app/lib/discord-client"
 import { CATEGORY_NAME_VALIDATOR } from "@/app/lib/validators/category-validator"
 import { FREE_QUOTA, PRO_QUOTA } from "@/config"
 import { db } from "@/db"
@@ -74,4 +75,12 @@ export const POST = async (req: NextRequest) => {
       { status: 429 }
     )
   }
+
+  const discord = new DiscordClient(process.env.DISCORD_BOT_TOKEN)
+
+  const dmChannel = await discord.createDM(user.discordId)
+
+  await discord.sendEmbed(dmChannel.id, {
+    title: "WORKING",
+  })
 }
