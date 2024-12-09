@@ -2,6 +2,7 @@ import { DiscordClient } from "@/app/lib/discord-client"
 import { CATEGORY_NAME_VALIDATOR } from "@/app/lib/validators/category-validator"
 import { FREE_QUOTA, PRO_QUOTA } from "@/config"
 import { db } from "@/db"
+import { timeStamp } from "console"
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 
@@ -80,7 +81,100 @@ export const POST = async (req: NextRequest) => {
 
   const dmChannel = await discord.createDM(user.discordId)
 
-  await discord.sendEmbed(dmChannel.id, {
-    title: "WORKING",
+  let requestData: unknown
+
+  try {
+    requestData = await req.json()
+  } catch (err) {
+    return NextResponse.json(
+      {
+        message: "Invalid JSON request body",
+      },
+      { status: 400 }
+    )
+  }
+
+  const validationResult = REQUEST_VALIDATOR.parse(requestData)
+
+  const category = user.EventCategories.find(
+    (cat) => cat.name === validationResult.category
+  )
+
+  if (!category) {
+    return NextResponse.json(
+      {
+        message: `You dont have a category named ${validationResult.category}`,
+      },
+      { status: 404 }
+    )
+  }
+
+  const eventData = {
+    title: `${category.emoji || "🔔"} ${
+      category.name.charAt(0).toUpperCase() + category.name.slice(1)
+    }`,
+    description:
+      validationResult.description || `A new ${category.name} has occured!`,
+    color: category.color,
+    timeStamp: new Date().toISOString(),
+    fields: Object.entries(validationResult.fields || {}).map(
+      ([key, value]) => {
+        return {
+          name: key,
+          value: String(value),
+          inline: true,
+        }
+      }
+    ),
+  }
+
+  const event = await db.event.create({
+    data: {
+      name: category.name,
+      formattedMessage: `${eventData.title}\n\n${eventData.description}`,
+      userId: user.id,
+      fields: validationResult.fields || {},
+      eventCategoryId: category.id,
+    },
+  })
+
+  try {
+    await discord.sendEmbed(dmChannel.id, eventData)
+
+    await db.event.update({
+      where: { id: event.id },
+      data: { deliveryStatus: "DELIVERED" },
+    })
+
+    await db.quota.upsert({
+      where: { userId: user.id, month: currentMonth, year: currentYear },
+      update: { count: { increment: 1 } },
+      create: {
+        userId: user.id,
+        month: currentMonth,
+        year: currentYear,
+        count: 1,
+      },
+    })
+  } catch (err) {
+    await db.event.update({
+      where: { id: event.id },
+      data: { deliveryStatus: "FAILED" },
+    })
+
+    console.log(err)
+
+    return NextResponse.json(
+      {
+        message: "Error processing event",
+        eventId: event.id,
+      },
+      { status: 500 }
+    )
+  }
+
+  return NextResponse.json({
+    message: "Error processing successfully",
+    eventId: event.id,
   })
 }
