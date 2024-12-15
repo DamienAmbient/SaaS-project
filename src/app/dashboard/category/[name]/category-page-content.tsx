@@ -15,6 +15,7 @@ import {
   ColumnFiltersState,
   Row,
   SortingState,
+  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -23,6 +24,15 @@ import {
 } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/utils"
+import { Heading } from "@/components/heading"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 interface CategoryPageContentProps {
   hasEvents: boolean
@@ -280,6 +290,71 @@ export const CategoryPageContent = ({
           </div>
         </TabsContent>
       </Tabs>
+
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="w-full flex flex-col gap-4">
+            <Heading className="text-3xl">Event overview</Heading>
+          </div>
+        </div>
+
+        <Card contentClassName="px-6 py-4">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHeader>
+
+            <TableBody>
+              {isFetching ? (
+                [...Array(5)].map((_, rowIndex) => (
+                  <TableRow key={rowIndex}>
+                    {columns.map((_, cellIndex) => (
+                      <TableCell key={cellIndex}>
+                        <div className="h-4 w-full bg-gray-200 animate-pulse rounded" />
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : table.getRowModel().rows.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </Card>
+      </div>
     </div>
   )
 }
