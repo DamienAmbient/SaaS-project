@@ -4,6 +4,7 @@ import { client } from "@/app/lib/client"
 import { createCheckoutSession } from "@/app/lib/stripe"
 import { Heading } from "@/components/heading"
 import { MaxWidthWrapper } from "@/components/max-width-wrapper"
+import { Button } from "@/components/ui/button"
 import { useUser } from "@clerk/nextjs"
 import { useMutation } from "@tanstack/react-query"
 import { CheckIcon } from "lucide-react"
@@ -75,6 +76,31 @@ const Page = () => {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div className="mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+            <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+              <div className="mx-auto max-w-xs py-8">
+                <p className="text-base font-semibold text-gray-600">
+                  Pay once, own forever
+                </p>
+                <p className="mt-6 flex items-baseline justify-center gap-x-2">
+                  <span className="text-5xl font-bold tracking-tight text-gray-900">
+                    $49
+                  </span>
+                  <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
+                    USD
+                  </span>
+                </p>
+
+                <Button onClick={handleGetAccess} className="mt-6 px-20">
+                  Get PingPanda
+                </Button>
+                <p className="mt-6 text-xs leading-5 text-gray-600">
+                  Secure payment. Start monitoring in minutes.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </MaxWidthWrapper>
