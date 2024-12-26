@@ -7,6 +7,7 @@ import { CreateEventCategoryModal } from "@/components/create-event-category-mod
 import { Button } from "@/components/ui/button"
 import { PlusIcon } from "lucide-react"
 import { createCheckoutSession } from "../lib/stripe"
+import { PaymentSuccessmodal } from "@/components/payment-success-modal"
 
 interface PageProps {
   searchParams: {
