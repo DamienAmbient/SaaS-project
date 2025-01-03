@@ -251,6 +251,12 @@ export const CategoryPageContent = ({
     })
   }
 
+  if (!pollingData.hasEvents) {
+    return (
+      <EmptyCategoryState categoryName={category.name}></EmptyCategoryState>
+    )
+  }
+
   return (
     <div className="space-y-6">
       <Tabs
